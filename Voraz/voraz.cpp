@@ -1,33 +1,51 @@
+
 #include <iostream>
 #include <vector>
-
 using namespace std;
+void mochila(int M, const vector<int>& b, const vector<int>& p, vector<int>& X) {
+    int n = b.size();
+    X.resize(n);
 
-int mochila(int W, vector<int>& peso, vector<int>& beneficio, int n) {
-    vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
-    //almacenar los subproblemas resueltos y calcula el valor máximo que se puede obtener
-    for (int i = 1; i <= n; ++i) {
-        for (int w = 1; w <= W; ++w) {
-            if (peso[i - 1] <= w) {
-                dp[i][w] = max(beneficio[i - 1] + dp[i - 1][w - peso[i - 1]], dp[i - 1][w]);
-            } else {
-                dp[i][w] = dp[i - 1][w];
-            }
-        }
+    for (int i = 0; i < n; i++) {
+        X[i] = 0;
     }
 
-    return dp[n][W];
+    int pesoAct = 0;
+    while (pesoAct < M) {
+        int mejorObjeto = -1;
+        double mejorRatio = 0.0;
+
+        for (int i = 0; i < n; i++) {
+            if (X[i] == 0 && (mejorObjeto == -1 || (double)p[i] / b[i] > mejorRatio)) {
+                mejorObjeto = i;
+                mejorRatio = (double)p[i] / b[i];
+            }
+        }
+
+        if (pesoAct + b[mejorObjeto] <= M) {
+            X[mejorObjeto] = 1;
+            pesoAct += b[mejorObjeto];
+        } else {
+            X[mejorObjeto] = (M - pesoAct) / b[mejorObjeto];
+            pesoAct = M;
+        }
+    }
 }
 
 int main() {
-    int W = 10;  // Capacidad máxima de la mochila
-    vector<int> peso = {1, 2, 4, 5};  // Pesos de los elementos
-    vector<int> beneficio = {3, 4, 5, 6};  // Valores de los elementos
-    int n = peso.size();  // Número de elementos
+    int M = 10; // Capacidad de la mochila
+    vector<int> b = {2, 3, 4, 5}; // Array de pesos
+    vector<int> p = {1, 2, 3, 4}; // Array de beneficio
+    vector<int> X; // Array de solución
 
-    int max_value = mochila(W, peso, beneficio, n);
+    mochila(M, b, p, X);
 
-    cout << "El valor máximo: " << max_value << endl;
-    
+    cout << "Objetos seleccionados:" << endl;
+    for (int i = 0; i < X.size(); i++) {
+        if (X[i] == 1) {
+            cout << "Objeto " << i+1 << endl;
+        }
+    }
+
     return 0;
 }
