@@ -1,0 +1,78 @@
+EJERCICIO 1:
+024
+Tiempo de ejecución1: 0.00509 milisegundos
+
+EJERCICIO 2:
+0,0
+0,1
+0,2
+0,3
+0,4
+0,5
+1,1
+1,2
+1,3
+1,4
+1,5
+2,2
+2,3
+2,4
+2,5
+3,3
+3,4
+3,5
+4,4
+4,5
+5,5
+
+Tiempo de ejecución1: 0.048281 milisegundos
+
+EJERCICIO 3:
+Ingrese el tamaño de los arreglos A (n): 2
+Ingrese el tamaño de los arreglos B (m): 3
+Arreglo A: 2 2 
+Arreglo B: 8 5 0 
+2,8
+2,5
+2,0
+2,8
+2,5
+2,0
+
+Tiempo de ejecución1: 0.036774 milisegundos
+
+EJERCICIO 4:
+1
+2
+4
+1
+2
+4
+1
+2
+4
+1
+2
+4
+1
+2
+4
+1
+2
+4
+
+Tiempo de ejecución1: 0.105092 milisegundos
+
+EJERCICIO 5:
+135
+Tiempo de ejecución1: 0.001386 milisegundos
+
+EJERCICIO 6:
+-829456313
+-1658912626
+
+Tiempo de ejecución1: 0.010571 milisegundos
+
+EJERCICIO 7:
+par
+Tiempo de ejecución1: 0.000575 milisegundos
