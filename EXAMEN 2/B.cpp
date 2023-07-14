@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
+#include <iostream>
+
 using namespace std;
 
-//Mergesort based on the y-coordinate of the points
+//Mergesort basado en la coordenada y de los puntos
 
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-void MergeY(vector<pair<double, double>> &arr, int low, int mid, int high) //Merge function based on y-coordinate
+void MergeY(vector<pair<double, double>> &arr, int low, int mid, int high) 
 {
     vector<pair<double, double>> temp;
     int i = low;
@@ -13,11 +13,11 @@ void MergeY(vector<pair<double, double>> &arr, int low, int mid, int high) //Mer
 
     while (i <= mid && j <= high)
     {
-        if (arr[i].second < arr[j].second) //comparing the y-coordinates of the points,the smaller one will come first
+        if (arr[i].second < arr[j].second) 
         {
             temp.push_back(arr[i++]);
         }
-        else if (arr[i].second == arr[j].second && arr[i].first < arr[j].first) //in case the y-coordinates are same then the tie is broken based on the smaller x-coordinate
+        else if (arr[i].second == arr[j].second && arr[i].first < arr[j].first) 
         {
             temp.push_back(arr[i++]);
         }
@@ -27,35 +27,34 @@ void MergeY(vector<pair<double, double>> &arr, int low, int mid, int high) //Mer
         }
     }
 
-    while (i <= mid) //to push the left over points
+    while (i <= mid) 
     {
         temp.push_back(arr[i++]);
     }
-    while (j <= high) //to push the left over points
+    while (j <= high) 
     {
         temp.push_back(arr[j++]);
     }
 
-    for (int i = low; i <= high; i++) //to write the array again in correct order
+    for (int i = low; i <= high; i++) 
     {
         arr[i] = temp[i - low];
     }
 }
 
-void MergeSortY(vector<pair<double, double>> &arr, int low, int high) //Mergesort function based on y-coordinate
+void MergeSortY(vector<pair<double, double>> &arr, int low, int high) 
 {
-    if (low < high) //if low<high then only enter
+    if (low < high) 
     {
-        int mid = (low + high) / 2;     //computing the middle value
-        MergeSortY(arr, low, mid);      //left recursive call
-        MergeSortY(arr, mid + 1, high); //right recursive call
-        MergeY(arr, low, mid, high);    //merge procedure at the end
+        int mid = (low + high) / 2;     
+        MergeSortY(arr, low, mid);      
+        MergeSortY(arr, mid + 1, high); 
+        MergeY(arr, low, mid, high);    
     }
 }
 
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-//Mergesort based on the x-coordinate of the points
+//Mergesort basado en la coordenada x de los puntos
 
 void MergeX(vector<pair<double, double>> &arr, int low, int mid, int high) //Merge function based on x-coordinate
 {
@@ -65,11 +64,11 @@ void MergeX(vector<pair<double, double>> &arr, int low, int mid, int high) //Mer
 
     while (i <= mid && j <= high)
     {
-        if (arr[i].first < arr[j].first) //comparing the x-coordinates of the points,the smaller one will come first
+        if (arr[i].first < arr[j].first) 
         {
             temp.push_back(arr[i++]);
         }
-        else if (arr[i].first == arr[j].first && arr[i].second < arr[j].second) //in case the x-coordinates are same then the tie is broken based on the smaller y-coordinate
+        else if (arr[i].first == arr[j].first && arr[i].second < arr[j].second) 
         {
             temp.push_back(arr[i++]);
         }
@@ -78,16 +77,16 @@ void MergeX(vector<pair<double, double>> &arr, int low, int mid, int high) //Mer
             temp.push_back(arr[j++]);
         }
     }
-    while (i <= mid) //to push the left over points
+    while (i <= mid) 
     {
         temp.push_back(arr[i++]);
     }
     while (j <= high)
     {
-        temp.push_back(arr[j++]); //to push the left over elements
+        temp.push_back(arr[j++]); 
     }
 
-    for (int i = low; i <= high; i++) //to write the array again in correct order
+    for (int i = low; i <= high; i++) 
     {
         arr[i] = temp[i - low];
     }
@@ -95,46 +94,41 @@ void MergeX(vector<pair<double, double>> &arr, int low, int mid, int high) //Mer
 
 void MergeSortX(vector<pair<double, double>> &arr, int low, int high)
 {
-    if (low < high) //if low<high then only enter
+    if (low < high) 
     {
-        int mid = (low + high) / 2;     //computing the middle value
-        MergeSortX(arr, low, mid);      //left recursive call
-        MergeSortX(arr, mid + 1, high); //right recursive call
-        MergeX(arr, low, mid, high);    //merge procedure at the end
+        int mid = (low + high) / 2;     
+        MergeSortX(arr, low, mid);      
+        MergeSortX(arr, mid + 1, high); 
+        MergeX(arr, low, mid, high);    
     }
 }
 
-//the function find_distance() computes the distance between two pairs of points
+//la función find_distance() calcula la distancia entre dos pares de puntos
 
 double find_distance(pair<double, double> p1, pair<double, double> p2, pair<double, double> &min1, pair<double, double> &min2)
 {
-    //if new pair has shorter distance compared to the old pair of points, then update the closest pairs
+    
     if (sqrt((p1.first - p2.first) * (p1.first - p2.first) + (p1.second - p2.second) * (p1.second - p2.second)) < sqrt((min1.first - min2.first) * (min1.first - min2.first) + (min1.second - min2.second) * (min1.second - min2.second)))
     {
         min1 = p1;
         min2 = p2;
     }
-    //returns the distance computed between the two points
     return sqrt((p1.first - p2.first) * (p1.first - p2.first) + (p1.second - p2.second) * (p1.second - p2.second));
 }
 
-//main function that computes the distance between the closest pair of points
-
+//función main que calcula la distancia entre el par de puntos más cercano
 double find_smallest_distance(vector<pair<double, double>> sorted_x, vector<pair<double, double>> sorted_y, pair<double, double> &min1, pair<double, double> &min2)
 {
-
-    int n = sorted_x.size(); //n contains the number of points
-
-    if (n <= 1) //if n<=1 then no need to further divide
+    int n = sorted_x.size(); 
+    if (n <= 1) 
     {
         return DBL_MAX;
     }
+    pair<double, double> p1, p2, p3, p4 = {DBL_MAX, DBL_MAX}; 
+    vector<pair<double, double>> left_x;                      
+    vector<pair<double, double>> right_x;                     
 
-    pair<double, double> p1, p2, p3, p4 = {DBL_MAX, DBL_MAX}; //initializing the dummy pairs as DBL_MAX
-    vector<pair<double, double>> left_x;                      //left_x has the value when x-coordinate <=x_mid
-    vector<pair<double, double>> right_x;                     //right_x has the value when x-coordinate > x_mid
-
-    for (int i = 0; i < n; i++) //put the points in left_x and right_x
+    for (int i = 0; i < n; i++) 
     {
         if (i < n / 2)
         {
@@ -145,10 +139,10 @@ double find_smallest_distance(vector<pair<double, double>> sorted_x, vector<pair
             right_x.push_back(sorted_y[i]);
         }
     }
-    int middle = left_x.back().first;             //compute the median value based on the x-coordinate
-    vector<pair<double, double>> left_y, right_y; //Points in left_y have the value when y-coordinate <=x_mid and right_y contains the rest of the coordinates
+    int middle = left_x.back().first;             
+    vector<pair<double, double>> left_y, right_y; 
 
-    for (auto x : sorted_y) //fill the points in left_y and right_y
+    for (auto x : sorted_y) 
     {
         if (x.first <= middle)
         {
@@ -160,10 +154,10 @@ double find_smallest_distance(vector<pair<double, double>> sorted_x, vector<pair
         }
     }
 
-    double d1 = find_smallest_distance(left_x, left_y, p1, p2);   //recursive call on the left region
-    double d2 = find_smallest_distance(right_x, right_y, p3, p4); //recursive call on the right region
+    double d1 = find_smallest_distance(left_x, left_y, p1, p2);   
+    double d2 = find_smallest_distance(right_x, right_y, p3, p4); 
 
-    if (d1 < d2) //update the closest points based on the minimum distance between them
+    if (d1 < d2) 
     {
         min1 = p1;
         min2 = p2;
@@ -174,21 +168,21 @@ double find_smallest_distance(vector<pair<double, double>> sorted_x, vector<pair
         min2 = p4;
     }
 
-    double d = min(d1, d2); //d contains the minimum distance from both the regions
+    double d = min(d1, d2); 
 
-    vector<pair<double, double>> band; //band will contain all the elements that are distance d apart from the mid_x value in both direction
+    vector<pair<double, double>> band; 
 
-    for (auto x : sorted_y) //populating the band vector
+    for (auto x : sorted_y) 
     {
         if (x.first > middle - d)
             band.push_back(x);
     }
 
-    for (int i = 0; i < band.size(); i++) //O(n) time loop
+    for (int i = 0; i < band.size(); i++) 
     {
-        for (int j = i + 1; j < band.size() && band[j].second < band[i].second + d; j++) //this will take O(1) guaranteed, for each point it will check for it's neighbouring 7 points at max
+        for (int j = i + 1; j < band.size() && band[j].second < band[i].second + d; j++) 
         {
-            if (find_distance(band[i], band[j], p1, p2) < d) //if found some better distance and points then simply update
+            if (find_distance(band[i], band[j], p1, p2) < d) 
             {
                 min1 = band[i];
                 min2 = band[j];
@@ -197,18 +191,19 @@ double find_smallest_distance(vector<pair<double, double>> sorted_x, vector<pair
         }
     }
 
-    return d; //return the closest distance found
+    return d; 
 }
 
 int main()
 {
-    //initialization and taking the inputs
-    int n;                           
-    vector<pair<double, double>> vec; 
-    cout << "How many points are there on the 2D plane?  ";
+    //inicialización y toma de las entradas
+    long long n;  
+    vector<double>output;  
+                           
     while (cin >> n && n!=0)
     {
-            if (n <= 1) //check for any invalid conditions
+          vector<pair<double, double>> vec;   
+            if (n <= 1) 
         {
             cout << "Invalid Input" << endl;
             return 0;
@@ -217,15 +212,14 @@ int main()
         for (int i = 1; i <= n; i++) 
         {
             double x, y;
-            cout << "Enter the coordinates of Point " << i << endl;
-            cout << "x" << i << ": ";
-            cin >> x;
-            cout << "y" << i << ": ";
-            cin >> y;
-            vec.push_back({x, y}); 
+            cin >> x >> y;
+            if(x>=0 && x<=40000 && x>=0 && x<=40000){
+                vec.push_back({x, y});
+            }
+             
         }
         cout << endl;
-        //Sorted the points on the basics of x and y-coordinates in O(nlogn) time
+        //Ordenó los puntos sobre los conceptos básicos de las coordenadas x e y en tiempo O (nlogn)
         MergeSortX(vec, 0, vec.size() - 1);          
         vector<pair<double, double>> sorted_x = vec; 
 
@@ -237,14 +231,16 @@ int main()
 
         double x = find_smallest_distance(sorted_x, sorted_y, min1, min2); 
 
-        //Shows the output
-        cout << "The closest pair of points are (" << min1.first << "," << min1.second << ") "
-            << "and "
-            << "(" << min2.first << "," << min2.second << ") " << endl;
-        cout << "The distance between them is " << x << " units" << endl;
+        //Muestra el output
+        output.push_back(x);       
     }
-    
-    
-    
+    for(double num:output){
+        if(num>10000){
+            cout<<"INFINITY"<<endl;
+        }
+        else{
+            cout<<num<<endl;
+        }
+    }
     return 0;
 }
